@@ -1,0 +1,105 @@
+<div class="flex flex-row">
+    <div class="relative container max-w-[400px]">
+        <app-side-bar></app-side-bar>
+    </div>
+    <div *ngIf="clicked === false; else list" class="">
+        <div class="flex flex-row">
+            <div class="min-h-screen w-[12px] bg-extra">
+        
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row-reverse items-center justify-start gap-[40px] h-[120px] w-[1508px] bg-extra">
+                    <button 
+                    (click)="$event.preventDefault(); newList()"
+                    class="flex flex-row-reverse items-center justify-start gap-[10px] mr-[80px]">
+                    <div class="w-[40px] h-[40px]">
+                        <img class="h-full w-full object-cover" src="assets/add.png" alt="">
+                    </div>
+                    <p class="text-[24px] font-futura text-primary">New List</p>
+                    </button>
+                    <div class="w-[4px] h-[60px] bg-primary">
+            
+                    </div>
+                </div>
+                <div class="flex flex-col gap-[80px] pt-[80px] justify-start items-center h-full w-full bg-primary">
+                    <div *ngIf="lists.length === 0; else showlist">
+                            
+                    </div>
+                    <ng-template #showlist>
+                        <div (click)="clickList(list)" *ngFor="let list of lists" class="cursor-pointer flex items-center justify-between w-[1350px] h-[80px] rounded px-4 focus:outline-none shadow-xl bg-white">
+                            <p class="text-[24px] font-futura font-thin">
+                                {{ list.listtitle }}
+                            </p>
+                            <button 
+                                (click)="$event.stopPropagation(); changeHeart(list)"
+                                class="mr-[24px]">
+                                    <img [src]="heartImage" alt="">
+                            </button>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #list>
+        <div class="flex flex-row">
+            <div class="min-h-screen w-[12px] bg-extra">
+        
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row-reverse items-center justify-between h-[120px] w-[1508px] bg-extra">
+                    <div class="flex flex-row-reverse items-center justify-start gap-[40px]">
+                        <button
+                        (click)="$event.preventDefault(); saveList()" 
+                        class="flex flex-row-reverse items-center justify-start gap-[10px]">
+                        <div class="mr-[80px] w-[40px] h-[40px]">
+                            <img class="h-full w-full object-cover" src="assets/save.png" alt="">
+                        </div>
+                        <p class="text-[24px] font-futura text-primary">Save</p>
+                        </button>
+                        <div class="w-[4px] h-[60px] bg-primary">
+                    
+                        </div>
+                        <button 
+                        (click)="$event.preventDefault(); deleteList(newListTitle, newListText)"
+                        class="flex flex-row-reverse items-center justify-start gap-[10px]">
+                        <div class="w-[40px] h-[40px]">
+                            <img class="h-full w-full object-cover" src="assets/delete.png" alt="">
+                        </div>
+                        <p class="text-[24px] font-futura text-primary">Delete</p>
+                        </button>
+                        <div class="w-[4px] h-[60px] bg-primary">
+                
+                        </div>
+                    </div>
+                    <div>
+                        <button 
+                        (click)="$event.preventDefault(); returnList()" class="ml-[24px]"
+                        [(ngModel)]="isFavorite">
+                        <div class="w-[40px] h-[40px]">
+                            <img class="h-full w-full object-cover" src="assets/return.png" alt="">
+                        </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-[80px] justify-start items-center h-full w-full bg-primary">
+                    <form class="mt-[80px]" action="">
+                        <input
+                            class="text-[24px] font-futura font-thin w-[1350px] h-[80px] rounded px-4 focus:outline-none shadow-xl"  
+                            type="text"
+                            name="listTitle"
+                            placeholder="Title"
+                            [(ngModel)]="newListTitle">
+                    </form>
+                    <form action="">
+                        <textarea 
+                            [(ngModel)]="newListText"
+                            name="listText"
+                            class="text-[24px] w-[1350px] h-[470px] p-4 font-futura font-thin rounded focus:outline-none shadow-2xl resize-none" 
+                            placeholder="Enter your text here..."></textarea>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </ng-template>
+</div>
